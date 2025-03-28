@@ -9,6 +9,8 @@ function App() {
   const [displayedSushis, setDisplayedSushis] = useState([])
   const [displaySetCount, setDisplaySetCount] = useState(1)
   const [eatenSushis, setEatenSushis] = useState([])
+  const [balance, setBalance] = useState(100)
+  
 
   useEffect(() => {
     fetch(API)
@@ -42,14 +44,16 @@ function App() {
     handleDisplaySetCount()
   }
 
-  function handleEatenSushi(eatenSushi) {
-    setEatenSushis([...eatenSushis, eatenSushi])
+  function handleEatenSushi(eatenSushiId) {
+    const eatenSushi = sushis.filter((sushi) => sushi.id === eatenSushiId)
+    setEatenSushis([...eatenSushis, eatenSushi[0]])
+    setBalance(balance - eatenSushi[0].price)
   }
 
   return (
     <div className="app">
       <SushiContainer sushis={displayedSushis} handleSushiDisplay={handleSushiDisplay} handleEatenSushi={handleEatenSushi}/>
-      <Table />
+      <Table plates={eatenSushis} balance={balance}/>
     </div>
   );
 }
