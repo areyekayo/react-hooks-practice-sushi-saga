@@ -2,17 +2,18 @@ import React from "react";
 import MoreButton from "./MoreButton";
 import Sushi from "./Sushi"
 
-function SushiContainer({ sushis, handleSushiDisplay }) {
-  //const [displayedSushis, setDisplayedSushis] = useState([])
+function SushiContainer({ sushis, handleSushiDisplay, handleEatenSushi }) {
 
   function handleMoreClick(){
-    //console.log("clicked")
     handleSushiDisplay()
   }
 
+  function handleEatClick(eatenSushi){
+    handleEatenSushi(eatenSushi)
+  }
   return (
     <div className="belt">
-      {sushis.map((sushi) => <Sushi key={sushi.id} name={sushi.name} image={sushi["img_url"]} price={sushi.price} />)}
+      {sushis.map((sushi) => <Sushi key={sushi.id} id={sushi.id} name={sushi.name} image={sushi["img_url"]} price={sushi.price} handleEatClick={handleEatClick}/>)}
       <MoreButton handleMoreClick={handleMoreClick}/>
     </div>
   );

@@ -8,6 +8,7 @@ function App() {
   const [sushis, setSushis] = useState([])
   const [displayedSushis, setDisplayedSushis] = useState([])
   const [displaySetCount, setDisplaySetCount] = useState(1)
+  const [eatenSushis, setEatenSushis] = useState([])
 
   useEffect(() => {
     fetch(API)
@@ -41,9 +42,13 @@ function App() {
     handleDisplaySetCount()
   }
 
+  function handleEatenSushi(eatenSushi) {
+    setEatenSushis([...eatenSushis, eatenSushi])
+  }
+
   return (
     <div className="app">
-      <SushiContainer sushis={displayedSushis} handleSushiDisplay={handleSushiDisplay}/>
+      <SushiContainer sushis={displayedSushis} handleSushiDisplay={handleSushiDisplay} handleEatenSushi={handleEatenSushi}/>
       <Table />
     </div>
   );
