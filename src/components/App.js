@@ -11,7 +11,6 @@ function App() {
   const [eatenSushis, setEatenSushis] = useState([])
   const [balance, setBalance] = useState(100)
   
-
   useEffect(() => {
     fetch(API)
       .then((r) => r.json())
@@ -45,14 +44,15 @@ function App() {
   }
 
   function handleEatenSushi(eatenSushiId) {
-    const eatenSushi = sushis.filter((sushi) => sushi.id === eatenSushiId)
+    const eatenSushi = sushis.filter((sushi) => sushi.id === eatenSushiId);
+    const sushiPrice = eatenSushi[0].price;
     setEatenSushis([...eatenSushis, eatenSushi[0]])
-    setBalance(balance - eatenSushi[0].price)
+    setBalance(balance - sushiPrice)
   }
 
   return (
     <div className="app">
-      <SushiContainer sushis={displayedSushis} handleSushiDisplay={handleSushiDisplay} handleEatenSushi={handleEatenSushi}/>
+      <SushiContainer sushis={displayedSushis} handleSushiDisplay={handleSushiDisplay} handleEatenSushi={handleEatenSushi} balance={balance}/>
       <Table plates={eatenSushis} balance={balance}/>
     </div>
   );
